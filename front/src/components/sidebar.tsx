@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CharacterListItem from "./CharacterListItem";
 import { AdjustmentsVerticalIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { SidebarProps } from "../types/sidebar";
+import { Link } from "react-router-dom";
 
 
 export default function Sidebar({ characters }: SidebarProps) {
     const [starredCharacters, setStarredCharacters] = useState([]);
+    const [selectedCharacter, setSelectedCharacter] = useState<number>(0);
+
+    useEffect(() => {
+
+    }, [selectedCharacter]);
 
     return (
         <aside className='h-screen'>
@@ -29,14 +35,15 @@ export default function Sidebar({ characters }: SidebarProps) {
                     <h4 className="text-xs pl-2">CHARACTERS ({characters.length})</h4>
                     {characters.map(character => {
                         return (
-                            <ul className="flex-1" key={character.id}>
+                            <Link to={`/${character.id}`} className="flex-1" key={character.id} onClick={() => setSelectedCharacter(character.id)}>
+                            <ul className="flex-1">
                                 <li className="relative flex items-center py-2 my-1 rounded-md cursor-pointer transition-colors">
-                                    <CharacterListItem character={character}></CharacterListItem>
+                                    <CharacterListItem character={character} isSelected={selectedCharacter == character.id ? true: false}/>
                                 </li>
                             </ul>
+                            </Link>
                         )
                     })}
-                    
                 </div>
             </nav>
         </aside>

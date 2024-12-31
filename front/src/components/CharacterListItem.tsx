@@ -1,19 +1,19 @@
 import { HeartIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Character } from "../types/characters";
 
-export default function CharacterListItem( { character }: { character: Character }) {
+export default function CharacterListItem( { character, isSelected }: { character: Character, isSelected: boolean }) {
     //Heart icon state
     const [isStarred, setIsStarred] = useState(false);
     const toggleStarred = () => setIsStarred(!isStarred);
 
     //Component state
     const [isActive, setIsActive] = useState(false);
-    const toggleActive = () => setIsActive(!isActive);
+    useEffect(() => setIsActive(isSelected), [isSelected]);
     console.log(character);
 
     return (
-        <div className={`flex border-y p-4 ${isActive ? 'bg-purple-100': ''} hover:bg-purple-100 items-center justify-between w-full rounded-xl`} onClick={toggleActive}>
+        <div className={`flex border-y p-4 ${isActive ? 'bg-purple-100': ''} hover:bg-purple-100 items-center justify-between w-full rounded-xl`}>
             <div className="flex">
                 <div className="flex mr-4 items-center">
                     <img src={character?.image} className="w-9 h-9 rounded-full" />

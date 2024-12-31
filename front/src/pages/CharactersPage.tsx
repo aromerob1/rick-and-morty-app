@@ -29,7 +29,7 @@ export default function CharactersPage() {
                 <div className='flex'>
                     <Sidebar characters={characters} />
                     <div className=''>
-                        <Outlet />
+                        <Outlet context={{characters}}/>
                     </div>
                 </div>
             )}
